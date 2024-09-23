@@ -204,7 +204,6 @@ insert into products values
 
 --11. Write an SQL query to update the status of a specific order in the "Orders" table (e.g., from
 --"Pending" to "Shipped"). Allow users to input the order ID and the new status.
-
 alter table orders
 	add OrderStatus varchar(20)
 
@@ -216,15 +215,12 @@ UPDATE Orders
 	SET OrderStatus = 'Shipped'
 	WHERE customerId IN (1,5,6,8,9);
 
-declare @value int
+declare @value int,@stat varchar(20)
 	set @value= 4
+	set @stat='NEW'
 update  orders
-	set orderStatus= case
-					when orderStatus='Shipped' then 'Pending'
-					else 'Shipped'
-				end
+	set orderStatus= @stat
 	where orderId=@value
-
 
 --12. Write an SQL query to calculate and update the number of orders placed by each customer
 --in the "Customers" table based on the data in the "Orders" table.
