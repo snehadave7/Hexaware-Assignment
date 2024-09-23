@@ -225,10 +225,14 @@ update  orders
 --12. Write an SQL query to calculate and update the number of orders placed by each customer
 --in the "Customers" table based on the data in the "Orders" table.
 
-select O.CustomerId, count(O.customerId) as NoOfOrdersPlaced
-	from customers as C join orders as O on C.customerId=O.customerId
-	group by O.customerid
-
+ALTER TABLE Customers
+ADD NoOfOrdersPlaced INT DEFAULT 0;
+UPDATE Customers
+SET NoOfOrdersPlaced = (
+    SELECT COUNT(*)
+    FROM Orders
+    WHERE Orders.customerId = Customers.customerId
+)
 
 
 --Task 3. Aggregate functions, Having, Order By, GroupBy and Joins:
